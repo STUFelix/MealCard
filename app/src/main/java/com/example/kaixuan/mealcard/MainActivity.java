@@ -49,8 +49,8 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
     private String count_today_string;
     private String date;
 
-    private String username ="";
-    private String password= "";
+    private String username ="17kxxiao";
+    private String password= "ZQxMH51";
 
 
 
@@ -80,28 +80,24 @@ public class MainActivity extends Activity implements RadioGroup.OnCheckedChange
                      if( count_cost_temp < 0) {count_cost +=count_cost_temp;}
 
                      if(count_cost_temp < 0 && date.equals(iterable_map.get("date"))){
-                         Log.i(TAG, "handleMessage: today"+count_cost_temp);
                          count_today_cost[today_i] =Math.abs(count_cost_temp);
                          today_i++;
                      }
                  }
 
-                 for (int i=0;i<today_i;i++){
-                     count_today_cost_amount =+ count_today_cost[i];
-                     if (i==0||i==today_i-1){
-                         count_today_string =count_today_cost[i]+"=";
-                         break;
-                     }
-                     if(i==0){
+                 for (int i=today_i-1; i>=0; i--){
+                     count_today_cost_amount = count_today_cost_amount+ count_today_cost[i];
+                     if(i==today_i-1){
                          count_today_string = ""+count_today_cost[i];
-                         break;
+                         Log.i(TAG, "handleMessage: count_today_cost"+count_today_cost[i]);
+                         continue;
                      }
-                     count_today_string = "+"+count_today_string;
-                     Log.i(TAG, "handleMessage: count_today_cost"+count_today_string);
+                     count_today_string = count_today_string+"+"+count_today_cost[i];
+                     Log.i(TAG, "handleMessage: count_today_cost"+count_today_cost[i]);
                  }
 
 
-                 tv_today_consumer.setText("今日消费："+count_today_string+String.format("%.1f",count_today_cost_amount)+"元");
+                 tv_today_consumer.setText("今日消费："+count_today_string+"="+String.format("%.1f",count_today_cost_amount)+"元");
                  tv_today_consumer.setTextSize(15);
                  tv_count_cost.setText("支出总计：\t"+String.format("%.1f",count_cost)+"  元");
                  tv_count_cost.setTextSize(20);
